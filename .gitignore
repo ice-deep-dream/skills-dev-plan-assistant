@@ -1,0 +1,4 @@
+dev-plan-assistant.zip
+__pycache__/
+*.pyc
+.DS_Store
