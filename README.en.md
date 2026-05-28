@@ -1,9 +1,12 @@
 # dev-plan-assistant
 
 <p align="center">
+  <a href="./README.md">中文</a> | <a href="./README.en.md">English</a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/License-MIT-blue" alt="License" />
   <img src="https://img.shields.io/badge/Platform-Claude%20Code%20%7C%20WorkBuddy%20%7C%20Trae-green" alt="Platform" />
-  <img src="https://img.shields.io/badge/Language-中文%20%7C%20English-yellow" alt="Language" />
 </p>
 
 > Full-lifecycle development assistant — covering「Plan → Develop → Review」
