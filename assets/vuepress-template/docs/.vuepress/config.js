@@ -33,7 +33,11 @@ export default defineUserConfig({
       '/03-模板中心/': [
         {
           text: '模板中心',
-          children: ['/03-模板中心/README.md'],
+          children: [
+            '/03-模板中心/README.md',
+            '/03-模板中心/前端开发模板.md',
+            '/03-模板中心/后端开发模板.md',
+          ],
         },
       ],
       '/04-开发计划/': [
