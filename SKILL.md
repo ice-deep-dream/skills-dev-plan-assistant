@@ -1,6 +1,6 @@
 ---
 name: dev-plan-assistant
-description: 全生命周期开发助手 — 开发前反问理解需求、检索 GitHub 避免重复造轮子、扫描项目生成模板文档、制定开发计划并输出 VuePress 站点；开发中一个模块一个计划、自动跟踪进度；开发后按需生成 Bug/测试/总结文档。适用于任何 AI 驱动的开发场景，覆盖「规划→开发→回顾」完整闭环。This skill should be used when starting a new project, proposing a new feature, tracking module development progress, or generating review documentation.
+description: 全生命周期开发助手 — 开发前反问理解需求、检索 GitHub 避免重复造轮子、扫描项目生成模板文档、制定开发计划并输出 VuePress 站点；开发中一个模块一个计划、自动跟踪进度、模块完成提醒 Git 提交；开发后按需生成 Bug/测试/总结文档。适用于任何 AI 驱动的开发场景，覆盖「规划→开发→回顾」完整闭环。This skill should be used when starting a new project, proposing a new feature, tracking module development progress, or generating review documentation.
 agent_created: true
 ---
 
@@ -103,7 +103,45 @@ agent_created: true
 |------|------|
 | 用户提出新模块需求 | 创建模块开发计划，写入 `docs/04-开发计划/`，参照 `03-模板中心/` |
 | 开发过程中 | 按需更新模块进度 |
-| 用户确认模块完成 | 标记模块为 completed，进度 100%，**更新开发计划** |
+| 用户确认模块完成 | 标记模块为 completed，进度 100%，**更新开发计划**，**询问是否提交推送** |
+
+### 模块完成后 Git 提醒
+
+**触发时机**：模块开发完成后
+
+```
+模块开发完成
+    ↓
+询问用户：「模块已完成，是否需要提交并推送到远程仓库？」
+    ↓
+┌─────────────────────────────────────┐
+│ 用户选择：                           │
+│ • 是 → 执行提交推送流程              │
+│ • 否 → 跳过，继续开发                │
+│ • 稍后 → 记录待提交状态              │
+└─────────────────────────────────────┘
+    ↓
+检测远程仓库 → git remote -v
+    ↓
+┌─────────────────────────────────────┐
+│ 无远程仓库时：                       │
+│ 提醒用户：「当前项目未连接远程仓库，  │
+│ 请先添加远程地址：                   │
+│ git remote add origin <url>」        │
+└─────────────────────────────────────┘
+    ↓
+执行提交推送
+```
+
+**Commit 格式**：`<type>(<module>): <desc>`
+
+| type | 用途 |
+|:----:|:-----|
+| `feat` | 新功能 |
+| `fix` | 修复 |
+| `docs` | 文档 |
+| `refactor` | 重构 |
+| `chore` | 杂项 |
 
 ### 一个模块一个计划
 
