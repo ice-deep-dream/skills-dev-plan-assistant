@@ -42,6 +42,7 @@ agent_created: true
 | 阶段一 | 新对话 + 用户提出开发意图 | **自动**触发 |
 | 阶段二 | 阶段一完成，用户开始编码 | **自动**触发 |
 | 阶段三 | 用户明确要求创建 Bug/测试/总结 | **按需**触发 |
+| 生成仓库文档 | 「生成文档」「初始化仓库文档」「生成 README」 | **按需**触发 |
 
 ---
 
@@ -175,6 +176,89 @@ agent_created: true
 | Bug 文档 | 「记录这个 bug」「创建 bug 文档」 | `docs/06-项目跟踪/BUG-XXX-标题.md` |
 | 测试文档 | 「记录测试」「创建测试文档」 | `docs/06-项目跟踪/TEST-XXX-名称.md` |
 | 总结文档 | 「总结一下」「复盘」 | `docs/06-项目跟踪/总结-日期-主题.md` |
+
+---
+
+## 生成仓库文档
+
+**触发词**：「生成文档」「初始化仓库文档」「生成 README」
+
+扫描项目代码，自动生成双语 README 文档。
+
+### 输出要求
+
+| 要求 | 说明 |
+|------|------|
+| 双语 | 中文版 `README.md`，英文版 `README.en.md` |
+| Icon | 使用 [Shields.io](https://shields.io/) 徽章显示技术栈、许可证等 |
+| 风格 | 干净优雅，表格对齐，无冗余 |
+
+### README 结构模板
+
+```markdown
+# 项目名称
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Node-18.x-339933?logo=node.js" />
+  <img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript" />
+  <img src="https://img.shields.io/badge/License-MIT-blue" />
+</p>
+
+> 一句话描述项目用途
+
+---
+
+## 功能
+
+| 功能 | 说明 |
+|:-----|:-----|
+| 功能A | 描述 |
+| 功能B | 描述 |
+
+---
+
+## 快速开始
+
+\```bash
+# 安装
+npm install
+
+# 运行
+npm start
+\```
+
+---
+
+## 目录结构
+
+\```
+project/
+├── src/
+│   ├── core/       # 核心模块
+│   └── utils/      # 工具函数
+└── docs/           # 文档
+\```
+
+---
+
+## 许可证
+
+MIT
+```
+
+### 徽章生成规则
+
+根据项目实际技术栈自动匹配 Shields.io 徽章：
+
+| 信息来源 | 徽章示例 |
+|----------|----------|
+| `package.json` engines / dependencies | `Node-18.x-339933?logo=node.js` |
+| 框架检测（React/Vue/Angular/Express/Next.js 等） | `React-18.x-61DAFB?logo=react` |
+| 语言检测（TypeScript/Python/Go/Rust 等） | `TypeScript-5.x-3178C6?logo=typescript` |
+| `LICENSE` 文件 | `License-MIT-blue` |
+| CI/CD 配置文件 | `GitHub_Actions-passing-brightgreen?logo=githubactions` |
+
+> 徽章颜色遵循各技术栈官方品牌色，格式：`https://img.shields.io/badge/<Label>-<Content>-<Color>?logo=<icon>`
 
 ---
 

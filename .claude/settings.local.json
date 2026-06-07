@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(rm -rf ~/.claude/skills/git-conventions)",
-      "Bash(mkdir -p ~/.claude/skills/git-conventions)",
-      "Edit(~/.claude/skills/git-conventions/**)"
-    ]
-  }
-}
