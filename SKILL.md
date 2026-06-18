@@ -44,6 +44,43 @@ agent_created: true
 | 阶段二 | 阶段一完成，用户开始编码 | **自动**触发 |
 | 阶段三 | 用户明确要求创建 Bug/测试/总结 | **按需**触发 |
 | 生成仓库文档 | 「生成文档」「初始化仓库文档」「生成 README」 | **按需**触发 |
+| 轻量模式 | 「轻量模式」「不需要站点」「只要文档」 | **按需**触发 |
+
+### 轻量模式
+
+**触发词**：「轻量模式」「不需要站点」「只要文档」
+
+**区别**：
+
+| 项目 | 标准模式 | 轻量模式 |
+|------|----------|----------|
+| VuePress 站点 | ✅ 完整站点 | ❌ 不生成 |
+| package.json | ✅ 生成 | ❌ 不生成 |
+| npm run docs:dev | ✅ 可预览 | ❌ 无需运行 |
+| Markdown 文件 | ✅ 生成 | ✅ 生成 |
+
+**轻量模式目录结构**：
+```
+docs/
+├── 01-需求分析.md
+├── 02-技术调研.md
+├── 03-模板中心/
+│   ├── 前端开发模板.md
+│   └── 后端开发模板.md
+├── 04-开发计划/
+│   ├── README.md
+│   └── 001-模块开发.md
+├── 05-开发规范.md
+└── 06-项目跟踪/
+    ├── bugs/
+    ├── tests/
+    └── summaries/
+```
+
+**适用场景**：
+- 小型项目、个人工具
+- 不需要在线文档预览
+- 已有其他文档系统（Notion、飞书等）
 
 ---
 
@@ -89,9 +126,19 @@ agent_created: true
 
 **输出**：`docs/03-模板中心/`，前端/后端各一个完整模板文档，包含技术栈、目录结构、代码骨架、编码规范和开发 Checklist。
 
+**全新项目（无现有代码）**：
+- 跳过扫描步骤
+- 使用 `assets/default-templates/` 中的默认模板库
+- 展示模板索引，让用户选择技术栈
+- 复制对应模板到 `docs/03-模板中心/`
+
 ### 1.4 制定开发计划 + 生成站点
 
-一个模块一个计划文档，写入 `docs/04-开发计划/`。完成模板扫描后将 `assets/vuepress-template/` 复制到项目 `docs/`，运行 `npm install && npm run docs:dev`。
+一个模块一个计划文档，写入 `docs/04-开发计划/`。
+
+**标准模式**：完成模板扫描后将 `assets/vuepress-template/` 复制到项目 `docs/`，运行 `npm install && npm run docs:dev`。
+
+**轻量模式**：不复制 VuePress 模板，直接创建 Markdown 文件，无需 `npm install`。
 
 ### 1.5 生成 CLAUDE.md（一次性）
 
@@ -315,6 +362,38 @@ docs/
     ├── tests/
     └── summaries/
 ```
+
+---
+
+## 默认模板库
+
+> 适用于全新项目，在扫描项目模板前作为参考。
+
+**位置**：`assets/default-templates/`
+
+### 前端模板
+
+| 模板 | 技术栈 | 适用场景 |
+|------|--------|----------|
+| [React + TypeScript](assets/default-templates/frontend/react-typescript.md) | React 18 + TS + Vite + TanStack Query + Zustand + Tailwind | 中大型 SPA、需要类型安全 |
+| [Vue 3 + Vite](assets/default-templates/frontend/vue3-vite.md) | Vue 3 + Vite + Pinia + Vue Router + Tailwind | 渐进式开发、快速原型 |
+| [Next.js App Router](assets/default-templates/frontend/nextjs-app.md) | Next.js 14 + App Router + Server Components | SEO 优先、全栈应用 |
+| [Vanilla JS/TS](assets/default-templates/frontend/vanilla.md) | TypeScript + Vite + 原生 DOM | 小型工具、嵌入脚本 |
+
+### 后端模板
+
+| 模板 | 技术栈 | 适用场景 |
+|------|--------|----------|
+| [Express + TypeScript](assets/default-templates/backend/express-typescript.md) | Express + TS + Prisma + PostgreSQL | 快速 API、中小型项目 |
+| [NestJS](assets/default-templates/backend/nestjs.md) | NestJS + TypeORM/Prisma + PostgreSQL | 企业级应用、模块化架构 |
+| [Spring Boot](assets/default-templates/backend/springboot.md) | Spring Boot 3 + MyBatis-Plus + MySQL | 企业 Java 生态、大型项目 |
+| [FastAPI](assets/default-templates/backend/fastapi.md) | FastAPI + SQLAlchemy + PostgreSQL | Python 生态、AI/ML 应用 |
+
+### 使用方式
+
+1. **新项目启动时**：展示模板索引，让用户选择技术栈
+2. **复制模板**：将对应模板复制到 `docs/03-模板中心/`
+3. **后续开发**：按模板开发新模块，保持风格一致
 
 ---
 
